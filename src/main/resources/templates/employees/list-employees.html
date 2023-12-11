@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Directory</title>
+    <!-- Bootstrap Framework: https://getbootstrap.com/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+
+    <h3>Employee Directory</h3>
+    <hr>
+    <!-- Add button link -->
+    <a th:href="@{/employees/showFormForAdd}"
+       class="btn btn-primary btn-sm mb-3"
+       role="button"
+       data-bs-toggle="button">
+        Add Employee
+    </a>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr th:each="tempEmployee : ${employees}">
+                <td th:text="${tempEmployee.firstName}"></td>
+                <td th:text="${tempEmployee.lastName}"></td>
+                <td th:text="${tempEmployee.Email}"></td>
+                <td>
+                    <!-- Update button link  -->
+                    <a th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.id})}"
+                       class="btn btn-info btn-sm" role="button" data-bs-toggle="button">
+                        Update
+                    </a>
+                    <!-- Delete button link  -->
+                    <a th:href="@{/employees/delete(employeeId=${tempEmployee.id})}"
+                       class="btn btn-danger btn-sm" role="button" data-bs-toggle="button"
+                       onclick="if(!(confirm('Are you sure you want to delete this employee?'))) return false">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
